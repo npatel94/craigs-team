@@ -1,0 +1,1133 @@
+/* 
+Last Updated: 11/22/2015 by Neema Patel
+
+convertTime Cases:
+	1. millisecond
+	2. second
+	3. min
+	4. hour
+	5. day
+	6. week
+
+convertTemp Cases:
+	1. Celsius
+	2. Farenheit
+	3. Kelvin
+
+convertWeight Cases:
+	1. milligram
+	2. gram
+	3. kilogram
+	4. metric ton
+	5. pound
+	6. ounce
+
+convertVolume
+	1. cubic meter
+	2. cubic kilometer
+	3. cubic centimeter
+	4. cubic millimeter
+	5. liter
+	6. milliliter
+	7. gallon
+	8. quart
+	9. pint
+	10. cup
+	11. fluid ounce
+	12. tablespoon
+	13. teaspoon
+	14. cubic mile
+	15. cubic yard
+	16. cubic foot
+	17. cubic inch
+
+convertLength
+	1. meter
+	2. kilometer
+	3. centimeter
+	4. millimeter
+	5. micrometer
+	6. nanometer
+	7. mile
+	8. yard
+	9. foot
+	10. inch
+	11. lightyear
+
+convertArea cases:
+	1.square meter
+	2. square kilometer
+	3. square centimeter
+	4. square millimeter
+	5. square micrometer
+	6. hectare
+	7. square mile
+	8. square yard
+	9. square foot
+	10. square inch
+	11. acre
+*/
+
+#include <string>
+#include <iostream>
+using namespace std;
+
+enum Time { MILLISECOND = 1, SECOND, MINUTE, HOUR, DAY, WEEK };
+enum Temp { CELSIUS = 1, FARENHEIT, KELVIN };
+enum Weight { MILLIGRAM = 1, GRAM, KILOGRAM, TON, POUND, OUNCE};
+enum Volume { CUBICMETER = 1, CUBICKILOMETER, CUBICCENTIMETER, CUBICMILLIMETER, LITER, MILLILITER, GALLON, QUART, PINT, CUP, FLUIDOUNCE, TABLESPOON, TEASPOON, CUBICMILE, CUBICYARD, CUBICFOOT, CUBICINCH };
+enum Length { METER = 1, KILOMETER, CENTIMETER, MILLIMETER, MICROMETER, NANOMETER, MILE, YARD, FOOT, INCH, LIGHTYEAR };
+enum Area { SQUAREMETER = 1, SQUAREKILOMETER, SQUARECENTIMETER, SQUAREMILLIMETER, SQUAREMICROMETER, HECTARE, SQUAREMILE, SQUAREYARD, SQUAREFOOT, SQUAREINCH, ACRE };
+
+ 
+
+double convertTime(int unitIn, int unitOut, double val) {
+	double converted = 0.0;
+	switch (unitIn) {									
+	case MILLISECOND:										// converting milliseconds to...
+		switch (unitOut) {							// ... milliseconds	
+		case MILLISECOND:			
+			converted = val; break;
+		case SECOND:										// ...seconds
+			converted = val / 1000.0; break;
+		case MINUTE:										// ...minutes
+			converted = val / (1000.0 * 60.0); break;
+		case HOUR:										// ...hours
+			converted = val / (1000.0 * 60.0 * 60.0); break;
+		case DAY:										// ...days
+			converted = val / (1000.0 * 60.0 * 60.0 * 24.0); break;
+		case WEEK:										// ...weeks
+			converted = val / (1000.0 * 60.0 * 60.0 * 24.0 * 7.0); break;
+		default: 
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case SECOND:										// converting seconds to...
+		switch (unitOut) {
+		case MILLISECOND:									// millisec
+			converted = val * 1000; break;
+		case SECOND:									// sec
+			converted = val; break;
+		case MINUTE:									// min
+			converted = val / 60.0; break;
+		case HOUR:									// hr
+			converted = val / (60.0 * 60.0); break;
+		case DAY:									// days
+			converted = val / (60.0 * 60.0 * 24.0); break;
+		case WEEK:									// weeks
+			converted = val / (60.0 * 60.0 * 24.0 * 7.0); break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case MINUTE:
+		switch (unitOut) {						// converting minutes to...
+		case MILLISECOND:									// milliseconds
+			converted = val * (1000.0 * 60.0); break;
+		case SECOND:									// seconds
+			converted = val * 60.0; break;
+		case MINUTE:									// minutes
+			converted = val; break;
+		case HOUR:									// hours
+			converted = val / 60.0; break;
+		case DAY:									// days
+			converted = val / (60.0 * 24.0); break;
+		case WEEK:									// weeks
+			converted = val / (60.0 * 24.0 * 7.0); break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case HOUR:										// converting hours to...
+		switch (unitOut) {break;
+		case MILLISECOND:									// milliseconds
+			converted = val * (1000.0 * 60.0 * 60.0); break;
+		case SECOND:									// seconds
+			converted = val * (60.0 * 60.0); break;
+		case MINUTE:									// minutes
+			converted = val * 60.0; break;
+		case HOUR:									// hours
+			converted = val; break;
+		case DAY:									// days
+			converted = val / 24.0; break;
+		case WEEK:									// weeks
+			converted = val / (24.0 * 7.0); break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case DAY:
+		switch (unitOut) {						// converting days to...
+		case MILLISECOND:									// milliseconds
+			converted = val * (24.0 * 60.0 * 60.0 * 1000.0); break;
+		case SECOND:									// seconds
+			converted = val * (24.0 * 60.0 * 60.0); break;
+		case MINUTE:									// minutes
+			converted = val * (24.0 * 60.0); break;
+		case HOUR:									// hours
+			converted = val * 24.0; break;
+		case DAY:									// days
+			converted = val; break;
+		case WEEK:									// weeks
+			converted = val / 7.0; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case WEEK:									// converting weeks to...
+		switch (unitOut) {
+		case MILLISECOND:									// milliseconds
+			converted = val * (7.0 * 24.0 * 60.0 * 60.0 * 1000.0); break;
+		case SECOND:									// seconds
+			converted = val * (7.0 * 24.0 * 60.0 * 60.0); break;
+		case MINUTE:									// minutes
+			converted = val * (7.0 * 24.0 * 60.0); break;
+		case HOUR:									// hours
+			converted = val * (7.0 * 24.0); break;
+		case DAY:									// days
+			converted = val * 7.0; break;
+		case WEEK:									// weeks
+			converted = val; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	default: 
+		cout << "Error: invalid conversion input"; break;
+	}
+
+
+	return converted;
+}
+
+double convertTemp(int unitIn, int unitOut, double val) {			// add in error if temp in kelvin less than 0
+	double converted = 0.0;
+	switch (unitIn) {
+	case CELSIUS:
+		switch (unitOut) {
+		case CELSIUS:
+			converted = val; break;
+		case FARENHEIT:
+			converted = (val*9.0 / 5.0) + 32.0; break;
+		case KELVIN:
+			converted = val + 273.15; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case FARENHEIT:
+		switch (unitOut) {
+		case CELSIUS:
+			converted = 5.0 / 9.0 * (val - 32.0); break;
+		case FARENHEIT:
+			converted = val; break;
+		case KELVIN:
+			converted = (5.0 / 9.0 * (val - 32.0)) + 273.15; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case KELVIN:
+		switch (unitOut) {
+		case CELSIUS:
+			converted = val - 273.15; break;
+		case FARENHEIT:
+			converted = 5.0 / 9.0 * ((val - 273.14) - 32.0); break;
+		case KELVIN:
+			converted = val; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	default:
+		cout << "Error: invalid conversion input"; break;
+	}
+
+	return converted;
+}   
+
+double convertWeight(int unitIn, int unitOut, double val) {
+	double converted = 0.0;
+
+	switch (unitIn) {
+	case MILLIGRAM:									// convert milligrams			
+		switch (unitOut) {							
+		case MILLIGRAM:
+			converted = val; break;
+		case GRAM:										
+			converted = val / 1000.0; break;
+		case KILOGRAM:										
+			converted = val / (1000.0 * 1000.0) ; break;
+		case TON:										
+			converted = val / (1000.0 * 1000.0 * 1000.0); break;
+		case POUND:										
+			converted = val * (2.205 / 1000.0); break;
+		case OUNCE:										
+			converted = val * (16 * 2.205) / (1000.0 * 1000.0) ; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case GRAM:										// convert grams
+		switch (unitOut) {
+		case MILLIGRAM:
+			converted = val * 1000.0; break;
+		case GRAM:
+			converted = val; break;
+		case KILOGRAM:
+			converted = val / 1000.0; break;
+		case TON:
+			converted = val / (1000.0 * 1000.0); break;
+		case POUND:
+			converted = val * 2.205 / 1000; break;
+		case OUNCE:
+			converted = val * (16.0 * 2.205) / 1000.0; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case KILOGRAM:
+		switch (unitOut) {						// converting kilograms
+		case MILLIGRAM:
+			converted = val * (1000.0 * 1000.0); break;
+		case GRAM:
+			converted = val * 1000.0; break;
+		case KILOGRAM:
+			converted = val; break;
+		case TON:
+			converted = val / 1000.0; break;
+		case POUND:
+			converted = val * 2.205; break;
+		case OUNCE:
+			converted = val * (2.205 * 16.0); break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case TON:										// converting metric tons
+		switch (unitOut) {
+		case MILLIGRAM:
+			converted = val * 1000.0 * 1000.0 * 1000.0; break;
+		case GRAM:
+			converted = val * 1000.0 * 1000.0; break;
+		case KILOGRAM:
+			converted = val * 1000.0; break;
+		case TON:
+			converted = val; break;
+		case POUND:
+			converted = val * 2.205 * 1000.0; break;
+		case OUNCE:
+			converted = val * 2.205 * 16.0 * 1000.0; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case POUND:
+		switch (unitOut) {						// converting pounds
+		case MILLIGRAM:
+			converted = val * (1000.0 * 1000.0) / 2.205; break;
+		case GRAM:
+			converted = val * 1000.0 / 2.205; break;
+		case KILOGRAM:
+			converted = val / 2.205; break;
+		case TON:
+			converted = val / (2.205 * 1000.0); break;
+		case POUND:
+			converted = val; break;
+		case OUNCE:
+			converted = val * 16.0; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case OUNCE:									// converting ounces
+		switch (unitOut) {
+		case MILLIGRAM:
+			converted = val * (1000.0 * 1000.0) / (2.205 * 16.0); break;
+		case GRAM:
+			converted = val * 1000.0 / (2.205 * 16.0); break;
+		case KILOGRAM:
+			converted = val / (2.205 * 16.0); break;
+		case TON:
+			converted = val / (1000.0 * 2.205 * 16.0); break;
+		case POUND:
+			converted = val / 16.0; break;
+		case OUNCE:
+			converted = val; break;
+		default:
+			cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	default:
+		cout << "Error: invalid conversion input"; break;
+	}
+
+	return converted;
+
+}
+
+double convertVolume(int unitIn, int unitOut, double val)
+{
+	double converted = 0.0;
+	switch (unitIn)
+	{
+	case CUBICMETER:
+		switch (unitOut) {
+		case CUBICMETER: converted = val; break;
+		case CUBICKILOMETER: converted = val / 1000000000; break;
+		case CUBICCENTIMETER: converted = val * 1000000; break;
+		case CUBICMILLIMETER: converted = val * 1000000000; break;
+		case LITER: converted = val * 1000; break;
+		case MILLILITER: converted = val * 1000000; break;
+		case GALLON: converted = val * 264.17217686; break;
+		case QUART: converted = val * 1056.6887074; break;
+		case PINT: converted = val * 2113.3774149; break;
+		case CUP: converted = val * 4226.7548297; break;
+		case FLUIDOUNCE: converted = val * 33814.038638; break;
+		case TABLESPOON: converted = val * 67628.077276; break;
+		case TEASPOON: converted = val * 202884.23183; break;
+		case CUBICMILE: converted = val * 2.399128636 * std::pow(10, -10); break;
+		case CUBICYARD: converted = val * 1.3079506193; break;
+		case CUBICFOOT: converted = val * 35.3147; break;
+		case CUBICINCH: converted = val * 61023.744095; break;
+		default: cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case CUBICKILOMETER:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 1000000000; break;
+		case CUBICKILOMETER: converted = val; break;
+		case CUBICCENTIMETER: converted = val * 1000000000000000; break;
+		case CUBICMILLIMETER: converted = val * 1000000000000000000; break;
+		case LITER: converted = val * 1000000000000; break;
+		case MILLILITER: converted = val * 1000000000000000; break;
+		case GALLON: converted = val * 264172176858; break;
+		case QUART: converted = val * 1056688707432; break;
+		case PINT: converted = val * 2113377414864; break;
+		case CUP: converted = val * 4226754829728; break;
+		case FLUIDOUNCE: converted = val * 33814038637823; break;
+		case TABLESPOON: converted = val * 67628077275645; break;
+		case TEASPOON: converted = val * 202884231826936; break;
+		case CUBICMILE: converted = val * 2.399128636 * std::pow(10, -10); break;
+		case CUBICYARD: converted = val * 1.3079506193 * std::pow(10, 9); break;
+		case CUBICFOOT: converted = val * 3.531 * std::pow(10, 10); 1.3079506193; break;
+		case CUBICINCH: converted = val * 61023.744095; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case CUBICCENTIMETER:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.000001; break;
+		case CUBICKILOMETER: converted = val * 9.99999999999 * std::pow(10, -16); break;
+		case CUBICCENTIMETER: converted = val; break;
+		case CUBICMILLIMETER: converted = val * 1000; break;
+		case LITER: converted = val * 0.001; break;
+		case MILLILITER: converted = val * 1; break;
+		case GALLON: converted = val * 0.0002641722; break;
+		case QUART: converted = val * 0.0010566887; break;
+		case PINT: converted = val * 0.0021133774; break;
+		case CUP: converted = val * 0.0042267548; break;
+		case FLUIDOUNCE: converted = val * 0.0338140386; break;
+		case TABLESPOON: converted = val * 0.0676280773; break;
+		case TEASPOON: converted = val * 0.2028842318; break;
+		case CUBICMILE: converted = val * 2.399128636 * std::pow(10, -16); break;
+		case CUBICYARD: converted = val * 0.000001308; break;
+		case CUBICFOOT: converted = val * 0.0000353147; break;
+		case CUBICINCH: converted = val * 0.0610237441; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case CUBICMILLIMETER:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.0000000001; break;
+		case CUBICKILOMETER: converted = val * std::pow(10, -18); break;
+		case CUBICCENTIMETER: converted = val * 0.001; break;
+		case CUBICMILLIMETER: converted = val; break;
+		case LITER: converted = val * 0.000001; break;
+		case MILLILITER: converted = val * 0.001; break;
+		case GALLON: converted = val * 2.641721768 * std::pow(10, -7); break;
+		case QUART: converted = val * 0.0000010567; break;
+		case PINT: converted = val * 0.0000021134; break;
+		case CUP: converted = val * 0.0000042268; break;
+		case FLUIDOUNCE: converted = val * 0.000033814; break;
+		case TABLESPOON: converted = val * 0.0000676281; break;
+		case TEASPOON: converted = val * 0.0002028842; break;
+		case CUBICMILE: converted = val * 2.399128636 * std::pow(10, -19); break;
+		case CUBICYARD: converted = val * 1.307950619 * std::pow(10, -9); break;
+		case CUBICFOOT: converted = val * 3.531466672 * std::pow(10, -8); break;
+		case CUBICINCH: converted = val * 0.0000610237; break;
+		default: cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case LITER:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.001; break;
+		case CUBICKILOMETER: converted = val * std::pow(10, -12); break;
+		case CUBICCENTIMETER: converted = val * 1000; break;
+		case CUBICMILLIMETER: converted = val * 1000000; break;
+		case LITER: converted = val; break;
+		case MILLILITER: converted = val * 1000; break;
+		case GALLON: converted = val * 0.2641721769; break;
+		case QUART: converted = val * 1.05666887074; break;
+		case PINT: converted = val * 2.1133774149; break;
+		case CUP: converted = val * 4.2267548297; break;
+		case FLUIDOUNCE: converted = val * 33.814038638; break;
+		case TABLESPOON: converted = val * 67.628077276; break;
+		case TEASPOON: converted = val * 202.88423183; break;
+		case CUBICMILE: converted = val * 2.399128636 * std::pow(10, -13); break;
+		case CUBICYARD: converted = val * 0.0013079506; break;
+		case CUBICFOOT: converted = val * 0.0353146667; break;
+		case CUBICINCH: converted = val * 61.023744095; break;
+		default: cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case MILLILITER:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.000001; break;
+		case CUBICKILOMETER: converted = val * std::pow(10, -16); break;
+		case CUBICCENTIMETER: converted = val; break;
+		case CUBICMILLIMETER: converted = val * 1000; break;
+		case LITER: converted = val * 0.001; break;
+		case MILLILITER: converted = val; break;
+		case GALLON: converted = val * 0.0002641722; break;
+		case QUART: converted = val * 0.0010566887; break;
+		case PINT: converted = val * 0.0021133774; break;
+		case CUP: converted = val * 0.0042267548; break;
+		case FLUIDOUNCE: converted = val * 0.0338140386; break;
+		case TABLESPOON: converted = val * 0.0676280773; break;
+		case TEASPOON: converted = val * 0.2028842318; break;
+		case CUBICMILE: converted = val * 2.399128636 * std::pow(10, -16); break;
+		case CUBICYARD: converted = val * 0.000001308; break;
+		case CUBICFOOT: converted = val * 0.0000353147; break;
+		case CUBICINCH: converted = val * 0.0610237441; break;
+		default: cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case GALLON:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.00378541; break;
+		case CUBICKILOMETER: converted = val * 3.78541 * std::pow(10, -12); break;
+		case CUBICCENTIMETER: converted = val * 3785.41; break;
+		case CUBICMILLIMETER: converted = val * 3785410; break;
+		case LITER: converted = val * 3.78541; break;
+		case MILLILITER: converted = val * 3785.41; break;
+		case GALLON: converted = val * 1; break;
+		case QUART: converted = val * 4; break;
+		case PINT: converted = val * 8; break;
+		case CUP: converted = val * 16; break;
+		case FLUIDOUNCE: converted = val * 128; break;
+		case TABLESPOON: converted = val * 256; break;
+		case TEASPOON: converted = val * 768; break;
+		case CUBICMILE: converted = val * 9.081685531 * std::pow(10, -13); break;
+		case CUBICYARD: converted = val * 0.0049511294; break;
+		case CUBICFOOT: converted = val * 0.1336804926; break;
+		case CUBICINCH: converted = val * 230.99989113; break;
+		default: cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case QUART:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.0009463525; break;
+		case CUBICKILOMETER: converted = val * 9.463525 * std::pow(10, -13); break;
+		case CUBICCENTIMETER: converted = val * 946.3525; break;
+		case CUBICMILLIMETER: converted = val * 946352.5; break;
+		case LITER: converted = val * 0.9463525; break;
+		case MILLILITER: converted = val * 946.3525; break;
+		case GALLON: converted = val * 0.25; break;
+		case QUART: converted = val; break;
+		case PINT: converted = val * 2; break;
+		case CUP: converted = val * 4; break;
+		case FLUIDOUNCE: converted = val * 32; break;
+		case TABLESPOON: converted = val * 64; break;
+		case TEASPOON: converted = val * 192; break;
+		case CUBICMILE: converted = val * 2.270421382 * std::pow(10, -13); break;
+		case CUBICYARD: converted = val * 0.0012377823; break;
+		case CUBICFOOT: converted = val * 0.0334201231; break;
+		case CUBICINCH: converted = val * 57.749972783; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case PINT:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.0004731763; break;
+		case CUBICKILOMETER: converted = val * 4.7317625* std::pow(10, -13); break;
+		case CUBICCENTIMETER: converted = val * 473.17625; break;
+		case CUBICMILLIMETER: converted = val * 473176.25; break;
+		case LITER: converted = val * 0.47317625; break;
+		case MILLILITER: converted = val * 473.17625; break;
+		case GALLON: converted = val * 0.125; break;
+		case QUART: converted = val * 0.5; break;
+		case PINT: converted = val; break;
+		case CUP: converted = val * 2; break;
+		case FLUIDOUNCE: converted = val * 16; break;
+		case TABLESPOON: converted = val * 32; break;
+		case TEASPOON: converted = val * 96; break;
+		case CUBICMILE: converted = val * 1.135210691 * std::pow(10, -13); break;
+		case CUBICYARD: converted = val * 0.0006188912; break;
+		case CUBICFOOT: converted = val * 0.0167100616; break;
+		case CUBICINCH: converted = val * 28.874986392; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case CUP:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.0002365881; break;
+		case CUBICKILOMETER: converted = val * 2.36588125 * std::pow(10, -13); break;
+		case CUBICCENTIMETER: converted = val * 236.588125; break;
+		case CUBICMILLIMETER: converted = val * 236588.125; break;
+		case LITER: converted = val * 0.236588125; break;
+		case MILLILITER: converted = val * 236.588125; break;
+		case GALLON: converted = val * 0.0625; break;
+		case QUART: converted = val * 0.25; break;
+		case PINT: converted = val * 0.5; break;
+		case CUP: converted = val; break;
+		case FLUIDOUNCE: converted = val * 8; break;
+		case TABLESPOON: converted = val * 16; break;
+		case TEASPOON: converted = val * 48; break;
+		case CUBICMILE: converted = val * 5.676053457 * std::pow(10, -14); break;
+		case CUBICYARD: converted = val * 0.0003094456; break;
+		case CUBICFOOT: converted = val * 0.0083550308; break;
+		case CUBICINCH: converted = val * 14.437493196; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case FLUIDOUNCE:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.0000295735; break;
+		case CUBICKILOMETER: converted = val * 2.957351562 * std::pow(10, -14); break;
+		case CUBICCENTIMETER: converted = val * 29.57351562; break;
+		case CUBICMILLIMETER: converted = val * 29573.51562; break;
+		case LITER: converted = val * 0.0295735156; break;
+		case MILLILITER: converted = val * 29.573515625; break;
+		case GALLON: converted = val * 0.0078125; break;
+		case QUART: converted = val * 0.03125; break;
+		case PINT: converted = val * 0.0625; break;
+		case CUP: converted = val * 0.125; break;
+		case FLUIDOUNCE: converted = val; break;
+		case TABLESPOON: converted = val * 2; break;
+		case TEASPOON: converted = val * 6; break;
+		case CUBICMILE: converted = val * 7.095066821 * std::pow(10, -15); break;
+		case CUBICYARD: converted = val * 0.0000386807; break;
+		case CUBICFOOT: converted = val * 0.0010443788; break;
+		case CUBICINCH: converted = val * 1.8046866495; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case TABLESPOON:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.0000147868; break;
+		case CUBICKILOMETER: converted = val * 1.478675781 * std::pow(10, -14); break;
+		case CUBICCENTIMETER: converted = val * 14.78675781; break;
+		case CUBICMILLIMETER: converted = val * 14786.75781; break;
+		case LITER: converted = val * 0.0147867578; break;
+		case MILLILITER: converted = val * 14.78675781; break;
+		case GALLON: converted = val * 0.00390625; break;
+		case QUART: converted = val * 0.015625; break;
+		case PINT: converted = val * 0.03125; break;
+		case CUP: converted = val * 0.0625; break;
+		case FLUIDOUNCE: converted = val * 0.5; break;
+		case TABLESPOON: converted = val; break;
+		case TEASPOON: converted = val * 3; break;
+		case CUBICMILE: converted = val * 7.095066821 * std::pow(10, -15); break;
+		case CUBICYARD: converted = val * 0.0000193403; break;
+		case CUBICFOOT: converted = val * 0.0005221894; break;
+		case CUBICINCH: converted = val * 0.9023433247; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case TEASPOON:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.0000049289; break;
+		case CUBICKILOMETER: converted = val * 4.92891927 * std::pow(10, -15); break;
+		case CUBICCENTIMETER: converted = val * 4.9289192708; break;
+		case CUBICMILLIMETER: converted = val * 4928.91927; break;
+		case LITER: converted = val * 0.00492891927; break;
+		case MILLILITER: converted = val * 4.92891927; break;
+		case GALLON: converted = val * 0.0013020833; break;
+		case QUART: converted = val * 0.0052083333; break;
+		case PINT: converted = val * 0.0104166667; break;
+		case CUP: converted = val * 0.0208333333; break;
+		case FLUIDOUNCE: converted = val * 0.1666666667; break;
+		case TABLESPOON: converted = val * 0.3333333333; break;
+		case TEASPOON: converted = val; break;
+		case CUBICMILE: converted = val * 1.1825111136 * std::pow(10, -15); break;
+		case CUBICYARD: converted = val * 0.0000064468; break;
+		case CUBICFOOT: converted = val * 0.0001740631; break;
+		case CUBICINCH: converted = val * 0.3007811082; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case CUBICMILE:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 4168180000; break;
+		case CUBICKILOMETER: converted = val * 4.16818; break;
+		case CUBICCENTIMETER: converted = val * 4168180000000000; break;
+		case CUBICMILLIMETER: converted = val * 4168179999999999500; break;
+		case LITER: converted = val * 4168180000000; break;
+		case MILLILITER: converted = val * 4168180000000000; break;
+		case GALLON: converted = val * 1101117184136; break;
+		case QUART: converted = val * 44044468736544; break;
+		case PINT: converted = val * 8808937473087; break;
+		case CUP: converted = val * 17617874946175; break;
+		case FLUIDOUNCE: converted = val * 140942999569399; break;
+		case TABLESPOON: converted = val * 281885999138799; break;
+		case TEASPOON: converted = val * 845657997416396; break;
+		case CUBICMILE: converted = val * 1; break;
+		case CUBICYARD: converted = val * 5451773612.4; break;
+		case CUBICFOOT: converted = val * 147197887535; break;
+		case CUBICINCH: converted = val * 254357949660781; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case CUBICYARD:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.764554858; break;
+		case CUBICKILOMETER: converted = val * 7.64554858 * std::pow(10, -10); break;
+		case CUBICCENTIMETER: converted = val * 764554.858; break;
+		case CUBICMILLIMETER: converted = val * 764554858; break;
+		case LITER: converted = val * 764.554858; break;
+		case MILLILITER: converted = val * 764554.858; break;
+		case GALLON: converted = val * 201.97412116; break;
+		case QUART: converted = val * 807.89648464; break;
+		case PINT: converted = val * 1615.7929693; break;
+		case CUP: converted = val * 3231.5859386; break;
+		case FLUIDOUNCE: converted = val * 25852.687509; break;
+		case TABLESPOON: converted = val * 51705.375017; break;
+		case TEASPOON: converted = val * 155116.12505; break;
+		case CUBICMILE: converted = val * 1.834265453 * std::pow(10, -10); break;
+		case CUBICYARD: converted = val; break;
+		case CUBICFOOT: converted = val * 27; break;
+		case CUBICINCH: converted = val * 46656; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case CUBICFOOT:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.0283168466; break;
+		case CUBICKILOMETER: converted = val * 2.83168466 * std::pow(10, -11); break;
+		case CUBICCENTIMETER: converted = val * 28316.8466; break;
+		case CUBICMILLIMETER: converted = val * 28316846.6; break;
+		case LITER: converted = val * 28.3168466; break;
+		case MILLILITER: converted = val * 28316.8466; break;
+		case GALLON: converted = val * 7.480523006; break;
+		case QUART: converted = val * 7.480523006 * 4; break;
+		case PINT: converted = val * 7.480523006 * 8; break;
+		case CUP: converted = val * 7.480523006 * 16; break;
+		case FLUIDOUNCE: converted = val * 957.50694476; break;
+		case TABLESPOON: converted = val * 1915.0138895; break;
+		case TEASPOON: converted = val * 5745.0416686; break;
+		case CUBICMILE: converted = val * 6.793575755 * std::pow(10, -12); break;
+		case CUBICYARD: converted = val * 0.037037037; break;
+		case CUBICFOOT: converted = val; break;
+		case CUBICINCH: converted = val * 1728; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	case CUBICINCH:
+		switch (unitOut) {
+		case CUBICMETER: converted = val * 0.0000163871; break;
+		case CUBICKILOMETER: converted = val * 1.6387064 * std::pow(10, -14); break;
+		case CUBICCENTIMETER: converted = val * 16.387064; break;
+		case CUBICMILLIMETER: converted = val * 16387.064; break;
+		case LITER: converted = val * 0.016387064; break;
+		case MILLILITER: converted = val * 16.387064; break;
+		case GALLON: converted = val * 0.0043290064; break;
+		case QUART: converted = val * 0.0043290064 * 4; break;
+		case PINT: converted = val * 0.0043290064 * 8; break;
+		case CUP: converted = val * 0.0043290064 * 16; break;
+		case FLUIDOUNCE: converted = val * 0.5541128153; break;
+		case TABLESPOON: converted = val * 1.1082256305; break;
+		case TEASPOON: converted = val * 3.3246768915; break;
+		case CUBICMILE: converted = val * 3.931467451 * std::pow(10, -15); break;
+		case CUBICYARD: converted = val * 0.0000214335; break;
+		case CUBICFOOT: converted = val * 0.0005787037; break;
+		case CUBICINCH: converted = val; break;
+		default: std::cout << "Error: invalid conversion output"; break;
+		}
+		break;
+	default: cout << "Error: invalid conversion input"; break;
+	}
+	return converted;
+}
+
+double convertLength(int unitIn, int unitOut, double val)
+{
+	double converted = 0.0;
+	switch (unitIn)
+	{
+	case METER:
+		switch (unitOut) {
+		case METER: converted = val; break;
+		case KILOMETER: converted = val / 1000; break;
+		case CENTIMETER: converted = val * 100; break;
+		case MILLIMETER:converted = val * 1000; break;
+		case MICROMETER:converted = val * 1000000; break;
+		case NANOMETER:converted = val * 1000000000; break;
+		case MILE:converted = val * 0.0006213689; break;
+		case YARD:converted = val * 1.0936132983; break;
+		case FOOT:converted = val * 3.280839895; break;
+		case INCH:converted = val * 39.37007874; break;
+		case LIGHTYEAR:converted = val * 1.057008707 * std::pow(10, -16); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case KILOMETER:
+		switch (unitOut) {
+		case METER: converted = val * 1000; break;
+		case KILOMETER: converted = val; break;
+		case CENTIMETER: converted = val * 100000; break;
+		case MILLIMETER:converted = val * 1000000; break;
+		case MICROMETER:converted = val * 1000000000; break;
+		case NANOMETER:converted = val * 1000000000000; break;
+		case MILE:converted = val * 0.6213689; break;
+		case YARD:converted = val * 1093.6132983; break;
+		case FOOT:converted = val * 3280.839895; break;
+		case INCH:converted = val * 39370.07874; break;
+		case LIGHTYEAR:converted = val * 1.057008707 * std::pow(10, -13); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case CENTIMETER:
+		switch (unitOut) {
+		case METER: converted = val / 100; break;
+		case KILOMETER: converted = val / 100000; break;
+		case CENTIMETER: converted = val; break;
+		case MILLIMETER:converted = val * 10; break;
+		case MICROMETER:converted = val * 10000; break;
+		case NANOMETER:converted = val * 10000000; break;
+		case MILE:converted = val * .000006213689; break;
+		case YARD:converted = val * 0.010936132983; break;
+		case FOOT:converted = val * 0.03280839895; break;
+		case INCH:converted = val * 0.3937007874; break;
+		case LIGHTYEAR:converted = val * 1.057008707 * std::pow(10, -18); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case MILLIMETER:
+		switch (unitOut) {
+		case METER: converted = val / 1000; break;
+		case KILOMETER: converted = val / 1000 / 1000; break;
+		case CENTIMETER: converted = val * 100 / 1000; break;
+		case MILLIMETER:converted = val; break;
+		case MICROMETER:converted = val * 1000; break;
+		case NANOMETER:converted = val * 1000000; break;
+		case MILE:converted = val * 6.213689 * std::pow(10, -7); break;
+		case YARD:converted = val * 0.0010936132983; break;
+		case FOOT:converted = val * 0.003280839895; break;
+		case INCH:converted = val * 0.03937007874; break;
+		case LIGHTYEAR:converted = val * 1.057008707 * std::pow(10, -19); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case MICROMETER:
+		switch (unitOut) {
+		case METER: converted = val / 1000000; break;
+		case KILOMETER: converted = val / 1000 / 1000000; break;
+		case CENTIMETER: converted = val * 100 / 1000000; break;
+		case MILLIMETER:converted = val * 1000 / 1000000; break;
+		case MICROMETER:converted = val; break;
+		case NANOMETER:converted = val * 1000000000 / 1000000; break;
+		case MILE:converted = val * 0.0006213689 / 1000000; break;
+		case YARD:converted = val * 1.0936132983 / 1000000; break;
+		case FOOT:converted = val * 3.280839895 / 1000000; break;
+		case INCH:converted = val * 39.37007874 / 1000000; break;
+		case LIGHTYEAR:converted = val * 1.057008707 * std::pow(10, -22); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case NANOMETER:
+		switch (unitOut) {
+		case METER: converted = val * std::pow(10, -9); break;
+		case KILOMETER: converted = val * std::pow(10, -12); break;
+		case CENTIMETER: converted = val * std::pow(10, -7); break;
+		case MILLIMETER:converted = val * 0.000001; break;
+		case MICROMETER:converted = val * 0.001; break;
+		case NANOMETER:converted = val; break;
+		case MILE:converted = val * 6.213689 * std::pow(10, -13); break;
+		case YARD:converted = val * 1.0936132983 * std::pow(10, -9); break;
+		case FOOT:converted = val * 3.280839895 * std::pow(10, -9); break;
+		case INCH:converted = val * 3.937007874 * std::pow(10, -8); break;
+		case LIGHTYEAR:converted = val * 1.057008707 * std::pow(10, -25); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case MILE:
+		switch (unitOut) {
+		case METER: converted = val * 1609.35; break;
+		case KILOMETER: converted = val * 1.60935; break;
+		case CENTIMETER: converted = val * 160935; break;
+		case MILLIMETER:converted = val * 1609350; break;
+		case MICROMETER:converted = val * 1609350000; break;
+		case NANOMETER:converted = val * 1609350000000; break;
+		case MILE:converted = val; break;
+		case YARD:converted = val * 1760.0065617; break;
+		case FOOT:converted = val * 5280.019685; break;
+		case INCH:converted = val * 63360.23622; break;
+		case LIGHTYEAR:converted = val * 1.057008707 * std::pow(10, -13); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case YARD:
+		switch (unitOut) {
+		case METER: converted = val * 0.9144; break;
+		case KILOMETER: converted = val * 0.0009144; break;
+		case CENTIMETER: converted = val * 91.44; break;
+		case MILLIMETER:converted = val * 914.4; break;
+		case MICROMETER:converted = val * 914400; break;
+		case NANOMETER:converted = val * 914400000; break;
+		case MILE:converted = val * 0.0005681797; break;
+		case YARD:converted = val; break;
+		case FOOT:converted = val * 3; break;
+		case INCH:converted = val * 36; break;
+		case LIGHTYEAR:converted = val * 9.665287622 * std::pow(10, -17); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case FOOT:
+		switch (unitOut) {
+		case METER: converted = val * 0.3048; break;
+		case KILOMETER: converted = val * 0.0003048; break;
+		case CENTIMETER: converted = val * 30.48; break;
+		case MILLIMETER:converted = val * 304.8; break;
+		case MICROMETER:converted = val * 304800; break;
+		case NANOMETER:converted = val * 304800000; break;
+		case MILE:converted = val * 0.0001893932; break;
+		case YARD:converted = val / 3; break;
+		case FOOT:converted = val; break;
+		case INCH:converted = val * 12; break;
+		case LIGHTYEAR:converted = val * 3.22176254 * std::pow(10, -17); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case INCH:
+		switch (unitOut) {
+		case METER: converted = val * 0.0254; break;
+		case KILOMETER: converted = val * 0.0000254; break;
+		case CENTIMETER: converted = val * 2.54; break;
+		case MILLIMETER:converted = val * 25.4; break;
+		case MICROMETER:converted = val * 25400; break;
+		case NANOMETER:converted = val * 25400000; break;
+		case MILE:converted = val * 0.0000157828; break;
+		case YARD:converted = val * 0.0277777778; break;
+		case FOOT:converted = val * 0.083333333; break;
+		case INCH:converted = val; break;
+		case LIGHTYEAR:converted = val * 2.684802117 * std::pow(10, -18); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case LIGHTYEAR:
+		switch (unitOut) {
+		case METER: converted = val * 9460660000000000; break;
+		case KILOMETER: converted = val * 9460660000000; break;
+		case CENTIMETER: converted = val * 946066000000000000; break;
+		case MILLIMETER:converted = val * 9460660000000000000; break;
+		case MICROMETER:converted = val * 9.46066 * std::pow(10, 21); break;
+		case NANOMETER:converted = val * 9.46066 * std::pow(10, 24); break;
+		case MILE:converted = val * 5878559666946; break;
+		case YARD:converted = val * 10346303587051618; break;
+		case FOOT:converted = val * 31038910761154856; break;
+		case INCH:converted = val * 372466929133858300; break;
+		case LIGHTYEAR:converted = val; break;
+		default: std::cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	default: std::cout << "Error: invalid conversion input"; break;
+	}
+	return converted;
+}
+
+double convertArea(int unitIn, int unitOut, double val)
+{
+	double converted = 0.0;
+	switch (unitIn)
+	{
+	case SQUAREMETER:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val; break;
+		case SQUAREKILOMETER: converted = val / 1000000; break;
+		case SQUARECENTIMETER:converted = val * 10000; break;
+		case SQUAREMILLIMETER:converted = val * 1000000; break;
+		case SQUAREMICROMETER:converted = val * 1000000000000; break;
+		case HECTARE:converted = val / 10000; break;
+		case SQUAREMILE:converted = val * 3.861018768 * std::pow(10, -7); break;
+		case SQUAREYARD:converted = val * 1.1959900463; break;
+		case SQUAREFOOT:converted = val * 10.763910417; break;
+		case SQUAREINCH:converted = val * 1550.0031; break;
+		case ACRE:converted = val * 0.0002471054; break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case SQUAREKILOMETER:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val * 1000000; break;
+		case SQUAREKILOMETER: converted = val; break;
+		case SQUARECENTIMETER:converted = val * 10000000000; break;
+		case SQUAREMILLIMETER:converted = val * 1000000000000; break;
+		case SQUAREMICROMETER:converted = val * 1000000000000000000; break;
+		case HECTARE:converted = val * 100; break;
+		case SQUAREMILE:converted = val * 0.3861018768; break;
+		case SQUAREYARD:converted = val * 1195990.0463; break;
+		case SQUAREFOOT:converted = val * 10763910.417; break;
+		case SQUAREINCH:converted = val * 1550003100; break;
+		case ACRE:converted = val * 247.1054; break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case SQUARECENTIMETER:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val / 10000; break;
+		case SQUAREKILOMETER: converted = val * std::pow(10, -10); break;
+		case SQUARECENTIMETER:converted = val; break;
+		case SQUAREMILLIMETER:converted = val * 100; break;
+		case SQUAREMICROMETER:converted = val * 100000000; break;
+		case HECTARE:converted = val std::pow(10, -8); break;
+		case SQUAREMILE:converted = val * 3.861018768 * std::pow(10, -11); break;
+		case SQUAREYARD:converted = val * 0.000119599; break;
+		case SQUAREFOOT:converted = val * 0.001076391; break;
+		case SQUAREINCH:converted = val * 0.15500031; break;
+		case ACRE:converted = val * 2.471054 * std::pow(10, -8); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case SQUAREMILLIMETER:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val / 1000000; break;
+		case SQUAREKILOMETER: converted = val * std::pow(10, -12); break;
+		case SQUARECENTIMETER:converted = val * 0.01; break;
+		case SQUAREMILLIMETER:converted = val; break;
+		case SQUAREMICROMETER:converted = val * 1000000; break;
+		case HECTARE:converted = val * std::pow(10, -10); break;
+		case SQUAREMILE:converted = val * 3.861018768 * std::pow(10, -13); break;
+		case SQUAREYARD:converted = val * 0.000001196; break;
+		case SQUAREFOOT:converted = val * 0.0000107639; break;
+		case SQUAREINCH:converted = val * 0.0015500031; break;
+		case ACRE:converted = val * 2.471054 * std::pow(10, -10); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case SQUAREMICROMETER:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val * std::pow(10, -12); break;
+		case SQUAREKILOMETER: converted = val * std::pow(10, -18); break;
+		case SQUARECENTIMETER:converted = val * std::pow(10, -8); break;
+		case SQUAREMILLIMETER:converted = val * 0.00001; break;
+		case SQUAREMICROMETER:converted = val; break;
+		case HECTARE:converted = val std::pow(10, -16); break;
+		case SQUAREMILE:converted = val * 3.861018768 * std::pow(10, -19); break;
+		case SQUAREYARD:converted = val * 1.1959900463 * std::pow(10, -12); break;
+		case SQUAREFOOT:converted = val * 1.0763910417 * std::pow(10, -11); break;
+		case SQUAREINCH:converted = val * 1.5500031 * std::pow(10, -9); break;
+		case ACRE:converted = val * 2.471054 * std::pow(10, -16); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case HECTARE:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val * 10000; break;
+		case SQUAREKILOMETER: converted = val * 0.01; break;
+		case SQUARECENTIMETER:converted = val * 100000000; break;
+		case SQUAREMILLIMETER:converted = val * 10000000000; break;
+		case SQUAREMICROMETER:converted = val * 10000000000000000; break;
+		case HECTARE:converted = val; break;
+		case SQUAREMILE:converted = val * 0.003861018768; break;
+		case SQUAREYARD:converted = val * 11959.900463; break;
+		case SQUAREFOOT:converted = val * 107639.10417; break;
+		case SQUAREINCH:converted = val * 15500031; break;
+		case ACRE:converted = val * 2.471054; break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case SQUAREMILE:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val * 2589990; break;
+		case SQUAREKILOMETER: converted = val * 2.58999; break;
+		case SQUARECENTIMETER:converted = val * 25899900000; break;
+		case SQUAREMILLIMETER:converted = val * 2589990000000; break;
+		case SQUAREMICROMETER:converted = val * 2589990000000000000; break;
+		case HECTARE:converted = val * 258.999; break;
+		case SQUAREMILE:converted = val; break;
+		case SQUAREYARD:converted = val * 3097602.26; break;
+		case SQUAREFOOT:converted = val * 27878420.34; break;
+		case SQUAREINCH:converted = val * 4014492529; break;
+		case ACRE:converted = val * 640.0046695; break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	case SQUAREYARD:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val * 0.83612736; break;
+		case SQUAREKILOMETER: converted = val * 8.3612736 * std::pow(10, -7); break;
+		case SQUARECENTIMETER:converted = val * 8361.2736; break;
+		case SQUAREMILLIMETER:converted = val * 836127.36; break;
+		case SQUAREMICROMETER:converted = val * 836127360000; break;
+		case HECTARE:converted = val * 0.000083612736; break;
+		case SQUAREMILE:converted = val * 3.228303429 * std::pow(10, -7); break;
+		case SQUAREYARD:converted = val; break;
+		case SQUAREFOOT:converted = val * 9; break;
+		case SQUAREINCH:converted = val * 1296; break;
+		case ACRE:converted = val * 0.0002066116; break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+
+	case SQUAREFOOT:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val * 0.09290304; break;
+		case SQUAREKILOMETER: converted = val * 0.09290304 * std::pow(10, -8); break;
+		case SQUARECENTIMETER:converted = val * 929.0304; break;
+		case SQUAREMILLIMETER:converted = val * 92903.04; break;
+		case SQUAREMICROMETER:converted = val * 92903040000; break;
+		case HECTARE:converted = val * 0.000009290304; break;
+		case SQUAREMILE:converted = val * 3.58700381 * std::pow(10, -8); break;
+		case SQUAREYARD:converted = val * 0.1111111111; break;
+		case SQUAREFOOT:converted = val; break;
+		case SQUAREINCH:converted = val * 144; break;
+		case ACRE:converted = val * 0.0000229568; break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+
+	case SQUAREINCH:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val * 0.00064516; break;
+		case SQUAREKILOMETER: converted = val * 6.4516 * std::pow(10, -10); break;
+		case SQUARECENTIMETER:converted = val * 6.4516; break;
+		case SQUAREMILLIMETER:converted = val * 645.16; break;
+		case SQUAREMICROMETER:converted = val * 645160000; break;
+		case HECTARE:converted = val * 6.4516 * std::pow(10, -8); break;
+		case SQUAREMILE:converted = val * 2.490974868 * std::pow(10, -10); break;
+		case SQUAREYARD:converted = val * 0.0007716049; break;
+		case SQUAREFOOT:converted = val * 0.0069444444; break;
+		case SQUAREINCH:converted = val; break;
+		case ACRE:converted = val * 1.594225079 * std::pow(10, -7); break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+
+	case ACRE:
+		switch (unitIn) {
+		case SQUAREMETER: converted = val * 4046.8564224; break;
+		case SQUAREKILOMETER: converted = val * 0.0040468564224; break;
+		case SQUARECENTIMETER:converted = val * 40468564.224; break;
+		case SQUAREMILLIMETER:converted = val * 4046856422.4; break;
+		case SQUAREMICROMETER:converted = val * 4046856422400000; break;
+		case HECTARE:converted = val * 0.40468564224; break;
+		case SQUAREMILE:converted = val * 0.0015624989; break;
+		case SQUAREYARD:converted = val * 4840; break;
+		case SQUAREFOOT:converted = val * 43560; break;
+		case SQUAREINCH:converted = val * 6272640; break;
+		case ACRE:converted = val; break;
+		default: cout << "Error: invalid conversion input"; break;
+		}
+		break;
+	default: cout << "Error: invalid conversion input"; break;
+	}
+	return converted;
+}
+
+int main() {
+	cout << "10000 seconds to " << convertTime(SECOND,HOUR,10000.0) << " hours" << endl;
+	cout << "300.3 K to " << convertTemp(KELVIN, CELSIUS, 300.3) << " C" << endl;
+	cout << "200 lbs to " << convertWeight(POUND, KILOGRAM, 200) << " kg" << endl;
+	return 0;
+}
